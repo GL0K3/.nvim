@@ -577,6 +577,34 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
+        pylsp = {
+          source_strategies = { 'poetry', 'default', 'system' },
+          settings = {
+            pylsp = {
+              plugins = {
+                black = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = true },
+                -- linter options
+                pylint = {
+                  enabled = true,
+                  -- args = { '--load-plugin', 'pylint_django' },
+                  executable = 'pylint',
+                },
+                flake8 = { enabled = false, executable = 'flake8' },
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+                pydocstyle = { enabled = true },
+                -- type checker
+                pyls_mypy = { enabled = true, live_mode = true },
+                -- auto-completion options
+                jedi_completion = { fuzzy = true },
+                -- import sorting
+                pyls_isort = { enabled = true },
+              },
+            },
+          },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -929,3 +957,4 @@ require('lazy').setup({
 -- vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.cmd 'set relativenumber'
 vim.cmd.set 'nowrap'
+vim.cmd 'Copilot disable'
