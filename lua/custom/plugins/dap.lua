@@ -22,6 +22,20 @@ return {
       require('dap-python').test_runner = 'pytest'
 
       require('nvim-dap-virtual-text').setup {}
+      dap.adapters.godot = {
+        type = 'server',
+        host = '127.0.0.1',
+        port = 6006,
+      }
+      dap.configurations.gdscript = {
+        {
+          type = 'godot',
+          request = 'launch',
+          name = 'Launch scene',
+          project = '${workspaceFolder}',
+          -- launch_scene = true,
+        },
+      }
       -- dap.adapters.python = {
       --   type = 'executable',
       --   command = 'python',
@@ -40,31 +54,22 @@ return {
       table.insert(dap.configurations.python, {
         type = 'python',
         request = 'launch',
-        name = 'Django',
-        program = 'manage.py',
-        args = { 'runserver' },
+        name = 'Django NoReload',
+        program = vim.loop.cwd() .. '/manage.py',
+        args = { 'runserver', '--noreload' },
         justMyCode = true,
         django = true,
         console = 'integratedTerminal',
-        projectDir = '${workspaceFolder}',
-        pythonPath = 'python',
-        cwd = '${workspaceFolder}',
-        options = {
-          detached = true,
-        },
       })
       table.insert(dap.configurations.python, {
         type = 'python',
         request = 'launch',
-        name = 'JustLaunch',
-        program = 'test.py',
+        name = 'Django',
+        program = vim.loop.cwd() .. '/manage.py',
+        args = { 'runserver' },
+        justMyCode = true,
+        django = true,
         console = 'integratedTerminal',
-        projectDir = '${workspaceFolder}',
-        pythonPath = 'python',
-        cwd = '${workspaceFolder}',
-        options = {
-          detached = true,
-        },
       })
 
       local elixir_ls_debugger = vim.fn.exepath 'elixir-ls-debugger'
