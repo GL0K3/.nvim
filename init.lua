@@ -579,29 +579,36 @@ require('lazy').setup({
         -- tsserver = {},
         --
         pylsp = {
+          flags = {
+            debounce_text_changes = 200,
+          },
           source_strategies = { 'poetry', 'default', 'system' },
           settings = {
             pylsp = {
               plugins = {
-                black = { enabled = false },
-                autopep8 = { enabled = false },
-                yapf = { enabled = true },
-                -- linter options
-                pylint = {
+                pylsp_mypy = {
                   enabled = true,
-                  -- args = { '--load-plugin', 'pylint_django' },
+                  overrides = { '--python-executable', 'python', true },
+                  report_progress = true,
+                  live_mode = false,
+                  dmypy = true,
+                },
+                jedi_completion = { fuzzy = true },
+                ruff = { enabled = true, executable = 'ruff', formatEnabled = true, format = { 'I' } },
+                rope_autoimport = { enabled = true },
+                pydocstyle = { enabled = true },
+                pylint = {
+                  enabled = false,
                   executable = 'pylint',
                 },
                 flake8 = { enabled = false, executable = 'flake8' },
                 pyflakes = { enabled = false },
                 pycodestyle = { enabled = false },
-                pydocstyle = { enabled = true },
-                -- type checker
-                pyls_mypy = { enabled = true, live_mode = true },
-                -- auto-completion options
-                jedi_completion = { fuzzy = true },
-                -- import sorting
-                pyls_isort = { enabled = true },
+                mccabe = { enabled = false },
+                isort = { enabled = false },
+                black = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
               },
             },
           },
