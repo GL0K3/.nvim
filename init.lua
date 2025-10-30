@@ -961,7 +961,7 @@ require('lazy').setup({
 -- vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.cmd 'set relativenumber'
 vim.cmd.set 'nowrap'
-vim.cmd 'Copilot disable'
+-- vim.cmd 'Copilot disable'
 local gdproject = io.open(vim.fn.getcwd() .. '/project.godot', 'r')
 if gdproject then
   io.close(gdproject)
